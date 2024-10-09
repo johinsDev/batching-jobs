@@ -5,8 +5,7 @@
     "next/typescript",
     "prettier",
     "plugin:tailwindcss/recommended",
-    "plugin:react-hooks/recommended",
-    "plugin:import/recommended"
+    "plugin:react-hooks/recommended"
   ],
   "plugins": ["tailwindcss", "jsx-a11y", "react-hooks", "unicorn"],
   "rules": {
