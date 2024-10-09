@@ -1,8 +1,8 @@
 "use client"
 
-import type { LucideIcon } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import type { LucideIcon } from "lucide-react"
 
 import { additionalLinks, defaultLinks } from "@/config/nav"
 import { cn } from "@/lib/utils"
@@ -19,13 +19,13 @@ const SidebarItems = () => {
       <SidebarLinkGroup links={defaultLinks} />
       {additionalLinks.length > 0
         ? additionalLinks.map((l) => (
-          <SidebarLinkGroup
-            links={l.links}
-            title={l.title}
-            border
-            key={l.title}
-          />
-        ))
+            <SidebarLinkGroup
+              links={l.links}
+              title={l.title}
+              border
+              key={l.title}
+            />
+          ))
         : null}
     </>
   )
@@ -71,8 +71,9 @@ const SidebarLink = ({
   return (
     <Link
       href={link.href}
-      className={`hover:bg-popover hover:text-primary text-muted-foreground group inline-block w-full rounded-md p-2 text-xs transition-colors hover:shadow${active ? " text-primary font-semibold" : ""
-        }`}
+      className={`hover:bg-popover hover:text-primary text-muted-foreground group inline-block w-full rounded-md p-2 text-xs transition-colors hover:shadow${
+        active ? " text-primary font-semibold" : ""
+      }`}
     >
       <div className="flex items-center">
         <div
