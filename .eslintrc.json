@@ -4,16 +4,11 @@
     "next/core-web-vitals",
     "next/typescript",
     "prettier",
-    "plugin:tailwindcss/recommended"
-  ],
-  "plugins": [
-    "eslint:recommended",
-    "tailwindcss",
-    "plugin:jsx-a11y/recommended",
+    "plugin:tailwindcss/recommended",
     "plugin:react-hooks/recommended",
-    "unicorn",
     "plugin:import/recommended"
   ],
+  "plugins": ["tailwindcss", "jsx-a11y", "react-hooks", "unicorn"],
   "rules": {
     "@next/next/no-html-link-for-pages": "off",
     "tailwindcss/no-custom-classname": "off",

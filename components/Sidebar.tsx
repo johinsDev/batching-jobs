@@ -1,11 +1,11 @@
-import SidebarItems from "./SidebarItems"
+import SidebarItems from "./sidebar-items"
 
 const Sidebar = () => {
   return (
-    <aside className="h-screen min-w-52 bg-muted hidden md:block p-4 pt-8 border-r border-border shadow-inner">
-      <div className="flex flex-col justify-between h-full">
+    <aside className="bg-muted border-border hidden h-screen min-w-52 border-r p-4 pt-8 shadow-inner md:block">
+      <div className="flex h-full flex-col justify-between">
         <div className="space-y-4">
-          <h3 className="text-lg font-semibold ml-4">Logo</h3>
+          <h3 className="ml-4 text-lg font-semibold">Logo</h3>
           <SidebarItems />
         </div>
       </div>

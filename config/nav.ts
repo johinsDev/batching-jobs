@@ -1,6 +1,6 @@
-import { Cog, Globe, HomeIcon, User } from "lucide-react"
+import { Cog, HomeIcon } from "lucide-react"
 
-import { SidebarLink } from "@/components/SidebarItems"
+import { SidebarLink } from "@/components/sidebar-items"
 
 type AdditionalLinks = {
   title: string

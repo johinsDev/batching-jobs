@@ -2,21 +2,21 @@ import Link from "next/link"
 
 export default function LandingPage() {
   return (
-    <div className="flex flex-col min-h-screen">
-      <header className="px-4 lg:px-6 h-14 flex items-center">
+    <div className="flex min-h-screen flex-col">
+      <header className="flex h-14 items-center px-4 lg:px-6">
         <Link className="flex items-center justify-center" href="#">
-          <MountainIcon className="h-6 w-6" />
+          <MountainIcon className="size-6" />
           <span className="sr-only">Acme Inc</span>
         </Link>
         <nav className="ml-auto flex gap-4 sm:gap-6">
           <Link
-            className="text-sm font-medium hover:underline underline-offset-4"
+            className="text-sm font-medium underline-offset-4 hover:underline"
             href="#features"
           >
             Features
           </Link>
           <Link
-            className="text-sm font-medium hover:underline underline-offset-4"
+            className="text-sm font-medium underline-offset-4 hover:underline"
             href="/sign-in"
           >
             Sign In
@@ -24,10 +24,10 @@ export default function LandingPage() {
         </nav>
       </header>
       <main className="flex-1">
-        <section className="w-full py-6 sm:py-12 md:py-24 xl:py-48 lg:py-32 ">
+        <section className="w-full py-6 sm:py-12 md:py-24 lg:py-32 xl:py-48 ">
           <div className="container px-4 md:px-6">
             <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
-              <div className="bg-neutral-100 dark:bg-neutral-800 mx-auto aspect-video overflow-hidden rounded-xl object-cover sm:w-full lg:order-last lg:aspect-square" />
+              <div className="mx-auto aspect-video overflow-hidden rounded-xl bg-neutral-100 object-cover sm:w-full lg:order-last lg:aspect-square dark:bg-neutral-800" />
               <div className="flex flex-col justify-center space-y-4">
                 <div className="space-y-2">
                   <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
@@ -76,7 +76,7 @@ export default function LandingPage() {
               </div>
             </div>
             <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-2 lg:gap-10">
-              <div className="mx-auto aspect-video overflow-hidden bg-neutral-100 dark:bg-neutral-800 rounded-xl object-cover object-center sm:w-full lg:order-last" />
+              <div className="mx-auto aspect-video overflow-hidden rounded-xl bg-neutral-100 object-cover object-center sm:w-full lg:order-last dark:bg-neutral-800" />
               <div className="flex flex-col justify-center space-y-4">
                 <ul className="grid gap-6">
                   <li>
@@ -111,7 +111,7 @@ export default function LandingPage() {
           </div>
         </section>
 
-        <section className="w-full py-12 md:py-24 lg:py-32 border-t">
+        <section className="w-full border-t py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
@@ -123,9 +123,9 @@ export default function LandingPage() {
                 </p>
               </div>
               <div className="w-full max-w-sm space-y-2">
-                <form className="flex sm:flex-row flex-col space-y-2 sm:space-y-0 sm:space-x-2">
+                <form className="flex flex-col space-y-2 sm:flex-row sm:space-x-2 sm:space-y-0">
                   <input
-                    className="max-w-lg flex-1 px-4 py-2 border-border border rounded-md "
+                    className="border-border max-w-lg flex-1 rounded-md border px-4 py-2 "
                     placeholder="Enter your email"
                     type="email"
                   />
@@ -141,15 +141,15 @@ export default function LandingPage() {
           </div>
         </section>
       </main>
-      <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t">
+      <footer className="flex w-full shrink-0 flex-col items-center gap-2 border-t px-4 py-6 sm:flex-row md:px-6">
         <p className="text-xs text-neutral-500 dark:text-neutral-400">
           © 2024 Acme Inc. All rights reserved.
         </p>
-        <nav className="sm:ml-auto flex gap-4 sm:gap-6">
-          <Link className="text-xs hover:underline underline-offset-4" href="#">
+        <nav className="flex gap-4 sm:ml-auto sm:gap-6">
+          <Link className="text-xs underline-offset-4 hover:underline" href="#">
             Terms of Service
           </Link>
-          <Link className="text-xs hover:underline underline-offset-4" href="#">
+          <Link className="text-xs underline-offset-4 hover:underline" href="#">
             Privacy
           </Link>
         </nav>
@@ -158,7 +158,7 @@ export default function LandingPage() {
   )
 }
 
-function MountainIcon(props: any) {
+function MountainIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
