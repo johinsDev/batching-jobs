@@ -20,7 +20,7 @@
     "lint:fix": "next lint --fix",
     "prepare": "husky",
     "commitlint": "commitlint --edit",
-    "commit": "git-cz"
+    "commit": "cz"
   },
   "dependencies": {
     "@libsql/client": "^0.14.0",
@@ -45,7 +45,7 @@
   "devDependencies": {
     "@commitlint/cli": "^19.5.0",
     "@commitlint/config-conventional": "^19.5.0",
-    "@commitlint/prompt": "^19.5.0",
+    "@commitlint/cz-commitlint": "^19.5.0",
     "@ianvs/prettier-plugin-sort-imports": "^4.3.1",
     "@types/node": "^20",
     "@types/react": "^18",
