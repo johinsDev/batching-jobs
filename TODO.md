@@ -1,6 +1,9 @@
-commitlint
-huskjy
 github action check
 githbuction relase
-github action test (playwright, vitest, lighthouse)
+playwright setup
+github action test (playwright)
+vitest setup
+github action test (vitest)
+storybook setup
 githjub action storybook
+github action light house

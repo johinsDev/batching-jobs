@@ -6,8 +6,14 @@ const buildEslintCommand = (filenames) => {
     .join(" --file ")}`
 }
 
+const buildPrettierCommand = (filenames) => {
+  return `prettier --write ${filenames
+    .map((f) => path.relative(process.cwd(), f))
+    .join(" ")}`
+}
+
 const config = {
-  "*.{js,jsx,ts,tsx}": [buildEslintCommand, "bash -c 'bun run check-types'"],
+  "*.{js,jsx,ts,tsx}": [buildPrettierCommand, buildEslintCommand, "bash -c 'bun run check-types'"],
 }
 
 export default config
