@@ -8,4 +8,6 @@ export const sqlite = createClient({
   authToken: env.DATABASE_AUTH_TOKEN,
 })
 
-export const db = drizzle(sqlite)
+export const db = drizzle(sqlite, {
+  logger: true,
+})

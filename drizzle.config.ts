@@ -1,15 +1,11 @@
 import type { Config } from "drizzle-kit"
 
-import { env } from "@/lib/env.mjs"
-
 export default {
-  schema: "./lib/db/schema",
-  dialect: "sqlite",
+  schema: "./lib/db/schema.ts",
+  dialect: "turso",
   out: "./lib/db/migrations",
-  driver: "turso",
   dbCredentials: {
-    url: env.DATABASE_URL,
-    authToken: env.DATABASE_AUTH_TOKEN,
+    url: process.env.DATABASE_URL!,
+    authToken: process.env.DATABASE_AUTH_TOKEN!,
   },
-  // @ts-expect-error - This is a valid config
 } satisfies Config

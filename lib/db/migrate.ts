@@ -1,17 +1,18 @@
 import { createClient } from "@libsql/client"
+import dotenv from "dotenv"
 import { drizzle } from "drizzle-orm/libsql"
 import { migrate } from "drizzle-orm/libsql/migrator"
 
-import { env } from "@/lib/env.mjs"
+dotenv.config()
 
 const runMigrate = async () => {
-  if (!env.DATABASE_URL) {
+  if (!process.env.DATABASE_URL) {
     throw new Error("DATABASE_URL is not defined")
   }
 
   const client = createClient({
-    url: env.DATABASE_URL,
-    authToken: env.DATABASE_AUTH_TOKEN,
+    url: process.env.DATABASE_URL!,
+    authToken: process.env.DATABASE_AUTH_TOKEN!,
   })
   const db = drizzle(client)
 
