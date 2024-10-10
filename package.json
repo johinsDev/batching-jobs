@@ -17,7 +17,8 @@
     "check-types": "tsc --project tsconfig.json --pretty --noEmit",
     "format:write": "prettier --write \"**/*.{ts,tsx,mdx}\" --cache",
     "format:check": "prettier --check \"**/*.{ts,tsx,mdx}\" --cache",
-    "lint:fix": "next lint --fix"
+    "lint:fix": "next lint --fix",
+    "prepare": "husky"
   },
   "dependencies": {
     "@libsql/client": "^0.14.0",
