@@ -1,10 +1,16 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
+import { useState } from "react"
+import { Loader2, LogOutIcon } from "lucide-react"
 import { useTheme } from "next-themes"
+
+import { client } from "@/lib/auth-client"
+import { Button } from "@/components/ui/button"
 
 export default function Page() {
   const { setTheme } = useTheme()
+  const [isSignOut, setIsSignOut] = useState<boolean>(false)
+
   return (
     <div>
       <h1 className="text-2xl font-semibold">Settings</h1>
@@ -99,6 +105,33 @@ export default function Page() {
               System
             </span>
           </div>
+        </Button>
+        <Button
+          className="z-10 gap-2"
+          variant="secondary"
+          onClick={async () => {
+            setIsSignOut(true)
+            await client.signOut({
+              fetchOptions: {
+                body: {
+                  callbackURL: "/",
+                },
+              },
+            })
+            setIsSignOut(false)
+          }}
+          disabled={isSignOut}
+        >
+          <span className="text-sm">
+            {isSignOut ? (
+              <Loader2 size={15} className="animate-spin" />
+            ) : (
+              <div className="flex items-center gap-2">
+                <LogOutIcon size={16} />
+                Sign Out
+              </div>
+            )}
+          </span>
         </Button>
       </div>
     </div>

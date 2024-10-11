@@ -1,20 +1,52 @@
 "use client"
 
+import { useState } from "react"
 import Link from "next/link"
-import { singIn } from "@/features/auth/actions/sign-in"
-import { useAction } from "next-safe-action/hooks"
+import { Loader2Icon } from "lucide-react"
+import { toast } from "sonner"
 
+import { client } from "@/lib/auth-client"
 import { Button } from "@/components/ui/button"
+import { Checkbox } from "@/components/ui/checkbox"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
 export function LoginForm() {
-  const { execute, result } = useAction(singIn)
+  const [loading, setLoading] = useState(false)
 
-  console.log(result)
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const formData = new FormData(e.currentTarget)
+
+    const email = formData.get("email") as string
+
+    const password = formData.get("password") as string
+
+    const rememberMe = formData.get("rememberMe") as string
+
+    client.signIn.email(
+      {
+        email: email,
+        password: password,
+        callbackURL: "/dashboard",
+        dontRememberMe: !rememberMe,
+      },
+      {
+        onRequest: () => {
+          setLoading(true)
+        },
+        onResponse: () => {
+          setLoading(false)
+        },
+        onError: (ctx) => {
+          toast.error(ctx.error.message)
+        },
+      }
+    )
+  }
 
   return (
-    <form className="grid gap-4" action={execute}>
+    <form className="grid gap-4" onSubmit={onSubmit}>
       <div className="grid gap-2">
         <Label htmlFor="email">Email</Label>
         <Input
@@ -24,6 +56,10 @@ export function LoginForm() {
           required
           name="email"
           autoComplete="email"
+          // onChange={(e) => {
+          //   setEmail(e.target.value);
+          // }}
+          // value={email}
         />
       </div>
       <div className="grid gap-2">
@@ -39,10 +75,48 @@ export function LoginForm() {
           required
           name="password"
           autoComplete="current-password"
+          // value={password}
+          // onChange={(e) => setPassword(e.target.value)}
         />
       </div>
-      <Button type="submit" className="w-full">
-        Login
+      <div className="flex items-center gap-2">
+        <Checkbox
+          name="rememberMe"
+          // onClick={() => {
+          //   setRememberMe(!rememberMe);
+          // }}
+        />
+        <Label>Remember me</Label>
+      </div>
+
+      <Button
+        type="submit"
+        // type="button"
+        className="w-full"
+        disabled={loading}
+        // onClick={async () => {
+        //   await client.signIn.email(
+        //     {
+        //       email: email,
+        //       password: password,
+        //       callbackURL: "/dashboard",
+        //       dontRememberMe: !rememberMe,
+        //     },
+        //     {
+        //       onRequest: () => {
+        //         setLoading(true);
+        //       },
+        //       onResponse: () => {
+        //         setLoading(false);
+        //       },
+        //       onError: (ctx) => {
+        //         toast.error(ctx.error.message);
+        //       },
+        //     },
+        //   );
+        // }}
+      >
+        {loading ? <Loader2Icon size={16} className="animate-spin" /> : "Login"}
       </Button>
       <Button variant="outline" className="w-full">
         Login with Google

@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { LoginForm } from "@/features/auth/components/login-form"
+import { RegisterForm } from "@/features/auth/components/register-form"
 
 import {
   Card,
@@ -9,23 +9,23 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 
-export default function LoginPage() {
+export default function SingUpPage() {
   return (
     <main className="flex min-h-screen items-center justify-center p-4">
       <Card className="mx-auto max-w-sm">
         <CardHeader>
-          <CardTitle className="text-2xl">Login</CardTitle>
+          <CardTitle className="text-2xl">Register</CardTitle>
           <CardDescription>
-            Enter your email below to login to your account
+            Enter your email below to register for an account
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <LoginForm />
+          <RegisterForm />
 
           <div className="mt-4 text-center text-sm">
-            Don&apos;t have an account?{" "}
-            <Link href="/sign-up" className="underline">
-              Sign up
+            Already have an account?{" "}
+            <Link href="/login" className="underline">
+              Sign in
             </Link>
           </div>
         </CardContent>
