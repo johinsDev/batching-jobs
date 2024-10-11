@@ -1,35 +1,14 @@
-import {
-  getUserByEmail,
-  verifyCredentials,
-} from "@/features/auth/data-access/users"
-
-class AuthError extends Error {
+export class AuthError extends Error {
   constructor(message: string) {
     super(message)
     this.name = "AuthError"
   }
 
-  static userNotFound() {
+  static notFound() {
     return new AuthError("User not found")
   }
 
-  static wrongPassword() {
-    return new AuthError("Wrong password")
+  static emailNotSent() {
+    return new AuthError("Email not sent")
   }
-}
-
-export async function signInUseCase(email: string, password: string) {
-  const user = await getUserByEmail(email)
-
-  if (!user) {
-    throw AuthError.userNotFound()
-  }
-
-  const isPasswordCorrect = await verifyCredentials(user.id, password)
-
-  if (!isPasswordCorrect) {
-    throw AuthError.wrongPassword()
-  }
-
-  return user
 }

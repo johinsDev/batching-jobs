@@ -5,9 +5,10 @@ import { z } from "zod"
 import { zfd } from "zod-form-data"
 
 import { auth } from "@/lib/auth"
-import { actionClient, AuthError } from "@/lib/safe-action"
+import { actionClient } from "@/lib/safe-action"
 
 import { getUserByEmail } from "../data-access/users"
+import { AuthError } from "../use-cases/users"
 
 // This schema is used to validate input from client.
 const schema = zfd.formData({

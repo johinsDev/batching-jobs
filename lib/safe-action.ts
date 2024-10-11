@@ -1,22 +1,8 @@
+import { AuthError } from "@/features/auth/use-cases/users"
 import {
   createSafeActionClient,
   DEFAULT_SERVER_ERROR_MESSAGE,
 } from "next-safe-action"
-
-export class AuthError extends Error {
-  constructor(message: string) {
-    super(message)
-    this.name = "AuthError"
-  }
-
-  static notFound() {
-    return new AuthError("User not found")
-  }
-
-  static emailNotSent() {
-    return new AuthError("Email not sent")
-  }
-}
 
 export const actionClient = createSafeActionClient({
   handleServerError(e) {
