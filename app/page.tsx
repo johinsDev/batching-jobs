@@ -17,7 +17,7 @@ export default function LandingPage() {
           </Link>
           <Link
             className="text-sm font-medium underline-offset-4 hover:underline"
-            href="/login"
+            href="/sign-in"
           >
             Sign In
           </Link>
