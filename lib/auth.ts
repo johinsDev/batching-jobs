@@ -20,6 +20,19 @@ export const auth = betterAuth({
   },
   emailAndPassword: {
     enabled: true,
+    async sendResetPassword(url, user) {
+      console.log("sendResetPassword", url, user)
+
+      // const res = await resend.emails.send({
+      // 	from,
+      // 	to: user.email,
+      // 	subject: "Reset your password",
+      // 	react: reactResetPasswordEmail({
+      // 		username: user.email,
+      // 		resetLink: url,
+      // 	}),
+      // });
+    },
   },
   socialProviders: {
     github: {

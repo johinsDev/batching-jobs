@@ -1,10 +1,12 @@
 user settings
 
 - Forgot password
+- Reset password
+- React hook form
+- Delete account
 - Update profile
 - Avatar update
 - Two factor authentication
-- Delete account
 - Link and Unlink account
 - Change password
 - Change email
