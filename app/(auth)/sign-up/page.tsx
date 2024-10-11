@@ -12,7 +12,6 @@ import {
 export default function SingUpPage() {
   return (
     <Card className="mx-auto w-full max-w-sm">
-      {" "}
       <CardHeader>
         <CardTitle className="text-2xl">Register</CardTitle>
         <CardDescription>

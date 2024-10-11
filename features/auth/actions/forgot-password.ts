@@ -7,6 +7,7 @@ import { zfd } from "zod-form-data"
 import { auth } from "@/lib/auth"
 import { actionClient } from "@/lib/safe-action"
 
+import { getAccountByUserId } from "../data-access/account"
 import { getUserByEmail } from "../data-access/users"
 import { AuthError } from "../use-cases/users"
 
@@ -22,6 +23,12 @@ export const forgotPassword = actionClient
 
     if (!user) {
       throw AuthError.notFound()
+    }
+
+    const account = await getAccountByUserId(user.id, "email")
+
+    if (!account) {
+      throw AuthError.accountNotFound("email")
     }
 
     const res = await auth.api.forgetPassword({

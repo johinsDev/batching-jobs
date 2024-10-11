@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { PasswordInput } from "@/components/ui/password-input"
 
 export function LoginForm() {
   const [loading, setLoading] = useState(false)
@@ -69,9 +70,8 @@ export function LoginForm() {
             Forgot your password?
           </Link>
         </div>
-        <Input
+        <PasswordInput
           id="password"
-          type="password"
           required
           name="password"
           autoComplete="current-password"

@@ -11,4 +11,10 @@ export class AuthError extends Error {
   static emailNotSent() {
     return new AuthError("Email not sent")
   }
+
+  static accountNotFound(type: string) {
+    return new AuthError(
+      `No account found associated with the provided ${type}. This email may be used for social login.`
+    )
+  }
 }

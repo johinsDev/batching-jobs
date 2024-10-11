@@ -36,7 +36,9 @@ export const session = sqliteTable("session", {
 export const account = sqliteTable("account", {
   id: text("id").primaryKey(),
   accountId: text("accountId").notNull(),
-  providerId: text("providerId").notNull(),
+  providerId: text("providerId", {
+    enum: accountTypeEnum,
+  }).notNull(),
   userId: text("userId")
     .notNull()
     .references(() => user.id),

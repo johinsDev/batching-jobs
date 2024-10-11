@@ -1,8 +1,7 @@
 user settings
 
-- Forgot password
-- Reset password
-- React hook form
+- React hook form integration
+- callbackURL login
 - Delete account
 - Update profile
 - Avatar update
@@ -10,7 +9,6 @@ user settings
 - Link and Unlink account
 - Change password
 - Change email
-- Forgot password
 - Magic link login
 - Username login
 - Seesion list
