@@ -17,7 +17,7 @@ export default function LandingPage() {
           </Link>
           <Link
             className="text-sm font-medium underline-offset-4 hover:underline"
-            href="/sign-in"
+            href="/login"
           >
             Sign In
           </Link>
@@ -142,10 +142,7 @@ export default function LandingPage() {
         </section>
       </main>
 
-
-      <h4>
-        Making some changes
-      </h4>
+      <h4>Making some changes</h4>
 
       <footer className="flex w-full shrink-0 flex-col items-center gap-2 border-t px-4 py-6 sm:flex-row md:px-6">
         <p className="text-xs text-neutral-500 dark:text-neutral-400">

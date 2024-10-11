@@ -166,11 +166,19 @@ export function RegisterForm() {
         <Button
           variant="outline"
           className="w-full gap-2"
+          type="button"
           onClick={async () => {
-            await client.signIn.social({
-              provider: "github",
-              callbackURL: "/dashboard",
-            })
+            await client.signIn.social(
+              {
+                provider: "github",
+                callbackURL: "/dashboard",
+              },
+              {
+                onError: (ctx) => {
+                  toast.error(ctx.error.message)
+                },
+              }
+            )
           }}
         >
           <GitHubLogoIcon />
