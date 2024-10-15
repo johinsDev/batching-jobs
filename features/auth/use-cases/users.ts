@@ -17,4 +17,8 @@ export class AuthError extends Error {
       `No account found associated with the provided ${type}. This email may be used for social login.`
     )
   }
+
+  static invalidCredentials(message?: string) {
+    return new AuthError(message || "Invalid credentials")
+  }
 }

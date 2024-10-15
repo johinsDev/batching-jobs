@@ -7,6 +7,28 @@ import { db } from "./db"
 import * as schema from "./db/schema"
 
 export const auth = betterAuth({
+  databaseHooks: {
+    session: {
+      create: {
+        async after(session) {
+          const expiresAtHuman = new Date(session.expiresAt).toLocaleString(
+            "es-ES",
+            {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+              hour: "2-digit",
+              minute: "2-digit",
+              second: "2-digit",
+              timeZone: "UTC",
+              timeZoneName: "short",
+            }
+          )
+          console.log("session created --------------?", expiresAtHuman)
+        },
+      },
+    },
+  },
   database: drizzleAdapter(db, {
     provider: "sqlite",
     schema,
@@ -22,16 +44,6 @@ export const auth = betterAuth({
     enabled: true,
     async sendResetPassword(url, user) {
       console.log("sendResetPassword", url, user)
-
-      // const res = await resend.emails.send({
-      // 	from,
-      // 	to: user.email,
-      // 	subject: "Reset your password",
-      // 	react: reactResetPasswordEmail({
-      // 		username: user.email,
-      // 		resetLink: url,
-      // 	}),
-      // });
     },
   },
   socialProviders: {

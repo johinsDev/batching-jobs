@@ -61,7 +61,6 @@ export default function ForgotPasswordForm() {
 
   return (
     <Card className="mx-auto w-full max-w-sm">
-      {" "}
       <CardHeader>
         <CardTitle>Forgot password</CardTitle>
         <CardDescription>
