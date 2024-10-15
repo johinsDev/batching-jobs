@@ -4,7 +4,6 @@ import Link from "next/link"
 import { signInSchema } from "@/features/auth/validations/sign-in-schema"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { GitHubLogoIcon } from "@radix-ui/react-icons"
-import { Loader2Icon } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 import { z } from "zod"
@@ -14,6 +13,7 @@ import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import {
   Form,
+  FormButton,
   FormControl,
   FormField,
   FormItem,
@@ -33,8 +33,6 @@ export function LoginForm() {
       rememberMe: false,
     },
   })
-
-  const isLoading = form.formState.isSubmitting
 
   const onSubmit = async (data: z.infer<typeof signInSchema>) => {
     await client.signIn.email(
@@ -131,13 +129,7 @@ export function LoginForm() {
           )}
         />
 
-        <Button type="submit" className="w-full" disabled={isLoading}>
-          {isLoading ? (
-            <Loader2Icon size={16} className="animate-spin" />
-          ) : (
-            "Login"
-          )}
-        </Button>
+        <FormButton className="w-full">Login</FormButton>
 
         <div className="flex items-center gap-2">
           <Button

@@ -15,6 +15,8 @@ import {
 import { cn } from "@/lib/utils"
 import { Label } from "@/components/ui/label"
 
+import { Button, ButtonProps } from "./button"
+
 const Form = FormProvider
 
 type FormFieldContextValue<
@@ -166,13 +168,30 @@ const FormMessage = React.forwardRef<
 })
 FormMessage.displayName = "FormMessage"
 
+const FormButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ children, ...props }, ref) => {
+    const { formState } = useFormContext()
+
+    const isSubmitting = formState.isSubmitting
+
+    return (
+      <Button ref={ref} type="submit" loading={isSubmitting} {...props}>
+        {children}
+      </Button>
+    )
+  }
+)
+
+FormButton.displayName = "FormButton"
+
 export {
-  useFormField,
   Form,
-  FormItem,
-  FormLabel,
+  FormButton,
   FormControl,
   FormDescription,
-  FormMessage,
   FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  useFormField,
 }

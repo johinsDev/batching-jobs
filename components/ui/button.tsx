@@ -1,6 +1,7 @@
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
+import { Loader2Icon, LucideProps } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
@@ -25,10 +26,14 @@ const buttonVariants = cva(
         lg: "h-11 rounded-md px-8",
         icon: "size-10",
       },
+      loading: {
+        true: "pointer-events-none cursor-wait opacity-50",
+      },
     },
     defaultVariants: {
       variant: "default",
       size: "default",
+      loading: false,
     },
   }
 )
@@ -37,17 +42,41 @@ export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean
+  loadingProps?: React.ForwardRefExoticComponent<
+    Omit<LucideProps, "ref"> & React.RefAttributes<SVGSVGElement>
+  >
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
+  (
+    {
+      className,
+      variant,
+      size,
+      children,
+      asChild = false,
+      loading,
+      disabled,
+      loadingProps,
+      ...props
+    },
+    ref
+  ) => {
     const Comp = asChild ? Slot : "button"
+
     return (
       <Comp
-        className={cn(buttonVariants({ variant, size, className }))}
+        className={cn(buttonVariants({ variant, size, className, loading }))}
         ref={ref}
+        disabled={loading || disabled}
         {...props}
-      />
+      >
+        {loading ? (
+          <Loader2Icon size={16} className="animate-spin" {...loadingProps} />
+        ) : (
+          children
+        )}
+      </Comp>
     )
   }
 )
