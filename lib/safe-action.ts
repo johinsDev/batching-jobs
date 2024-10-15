@@ -1,4 +1,4 @@
-import { AuthError } from "@/features/auth/use-cases/users"
+import { AuthError } from "@/features/auth/types"
 import {
   createSafeActionClient,
   DEFAULT_SERVER_ERROR_MESSAGE,

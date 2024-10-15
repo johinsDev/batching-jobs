@@ -7,6 +7,7 @@ user settings
 - r2 integration (react dropzone)
 - Avatar update
 - Two factor authentication
+- Password protection
 - Link and Unlink account
 - Change password
 - Create password(create credential account)

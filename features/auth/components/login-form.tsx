@@ -35,6 +35,14 @@ export function LoginForm() {
   })
 
   const onSubmit = async (data: z.infer<typeof signInSchema>) => {
+    // ensurePasswordIsConfirmed ->, title, description, cb? -> promise to execute after password is confirmed
+    // should create an early return if the password is not confirmed
+    // Check if the password timeout is still valid on component mount
+    // Password is still valid, no need to show modal
+    // Password is invalid, show modal
+    // modal will call a sever action to validate the password and create a cookie
+    // server action should validate the password auth timeout
+
     await client.signIn.email(
       {
         email: data.email,
