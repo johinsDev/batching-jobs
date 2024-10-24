@@ -1,5 +1,6 @@
 user settings
 
+- send email
 - React hook form integration
 - callbackURL login
 - Delete account
@@ -21,6 +22,7 @@ user settings
 - resend integration
 - rate limit integration with upstash/redis
 - next intl errors
+- admin plugin
 
 github action check
 githbuction relase

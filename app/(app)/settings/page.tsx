@@ -112,11 +112,7 @@ export default function Page() {
           onClick={async () => {
             setIsSignOut(true)
             await client.signOut({
-              fetchOptions: {
-                body: {
-                  callbackURL: "/",
-                },
-              },
+              fetchOptions: {},
             })
             setIsSignOut(false)
           }}

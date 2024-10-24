@@ -64,9 +64,31 @@ export function LoginForm() {
     )
   }
 
+  const ensurePasswordIsConfirmed =
+    (cb: (e?: React.BaseSyntheticEvent) => Promise<void>) =>
+    (e: React.FormEvent) => {
+      e.preventDefault()
+
+      const passwordConfirmed = document.cookie.includes("password-confirmed")
+
+      if (!passwordConfirmed) {
+        if (confirm("Please confirm your password")) {
+          document.cookie = "password-confirmed=true"
+        } else {
+          toast.error("Please confirm your password")
+          return
+        }
+      }
+
+      cb(e)
+    }
+
   return (
     <Form {...form}>
-      <form className="grid gap-4" onSubmit={form.handleSubmit(onSubmit)}>
+      <form
+        className="grid gap-4"
+        onSubmit={ensurePasswordIsConfirmed(form.handleSubmit(onSubmit))}
+      >
         <FormField
           control={form.control}
           name="email"

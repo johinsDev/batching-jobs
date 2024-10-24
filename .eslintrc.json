@@ -4,16 +4,13 @@
     "next/core-web-vitals",
     "next/typescript",
     "prettier",
-    "plugin:tailwindcss/recommended",
-    "plugin:react-hooks/recommended"
+    "plugin:tailwindcss/recommended"
   ],
-  "plugins": ["tailwindcss", "jsx-a11y", "react-hooks", "unicorn"],
+  "plugins": ["tailwindcss", "jsx-a11y", "unicorn"],
   "rules": {
     "@next/next/no-html-link-for-pages": "off",
     "tailwindcss/no-custom-classname": "off",
     "tailwindcss/classnames-order": "error",
-    "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn",
     "unicorn/filename-case": [
       "error",
       {
