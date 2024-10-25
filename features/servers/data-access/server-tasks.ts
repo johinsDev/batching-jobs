@@ -80,11 +80,11 @@ export async function transitionInProgressServerTask(
   const task = await getInProgressServerTask(serverId)
 
   if (task) {
-    console.log("Transitioning task to failed", { task })
+    console.log("Transitioning task to " + state, { task })
 
     await transitionServerTaskToState(task, state)
   } else {
-    console.error("No in progress task found", { serverId })
+    console.log("No in progress task found", { serverId })
   }
 }
 
@@ -107,7 +107,7 @@ export async function transitionNextServerTask(serverId: string) {
 
     await transitionServerTaskToState(task, "inprogress")
   } else {
-    console.error("No pending task found", { serverId })
+    console.log("No pending task found", { serverId })
   }
 }
 

@@ -6,8 +6,10 @@ import {
   updateServer,
 } from "@/features/servers/data-access/server"
 import { createServerTasks } from "@/features/servers/data-access/server-tasks"
-import { serverTypeFactory } from "@/features/servers/lib/server-type-factory"
-import { createServerTask } from "@/features/servers/trigger/provisioning-servers"
+import {
+  createServerTask,
+  serverTypeFactory,
+} from "@/features/servers/trigger/provisioning-servers"
 import { zfd } from "zod-form-data"
 
 import { actionClient } from "@/lib/safe-action"
