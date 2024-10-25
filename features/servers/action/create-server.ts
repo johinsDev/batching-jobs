@@ -43,7 +43,7 @@ export const createServer = actionClient
     console.log("Server tasks created", { serverTasks })
 
     const task = await createServerTask.trigger({
-      serverId: server.id,
+      server,
     })
 
     console.log("Server provisioning started", { server, task })

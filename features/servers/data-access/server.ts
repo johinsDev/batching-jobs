@@ -14,6 +14,7 @@ export async function createServer(data: Omit<NewServer, "id">) {
     .returning({
       id: server.id,
       type: server.type,
+      name: server.name,
     })
 
   return res[0]
