@@ -2,20 +2,22 @@ import { eq } from "drizzle-orm"
 
 import { db } from "@/lib/db"
 import { jobBatch, NewJobBatch } from "@/lib/db/schema"
-import { nanoid } from "@/lib/utils"
 
-export async function createBatch(data: Omit<NewJobBatch, "id">) {
-  try {
-    await db.insert(jobBatch).values({
-      id: nanoid(),
+export async function createBatch(data: NewJobBatch) {
+  const res = await db
+    .insert(jobBatch)
+    .values({
+      id: data.id,
       failedJobs: 0,
       name: data.name,
       pendingJobs: data.pendingJobs,
       totalJobs: data.totalJobs,
     })
-  } catch (error) {
-    console.error(error)
-  }
+    .returning({
+      id: jobBatch.id,
+    })
+
+  return res[0]
 }
 
 export async function updateBatch(id: string, data: Partial<NewJobBatch>) {

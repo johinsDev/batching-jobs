@@ -16,5 +16,5 @@ export default defineConfig({
       randomize: true,
     },
   },
-  dirs: ["features/auth/trigger"],
+  dirs: ["features/servers/trigger"],
 })

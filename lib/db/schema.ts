@@ -117,13 +117,6 @@ export const server = sqliteTable("server", {
     .default(sql`(current_timestamp)`),
 })
 
-export const serversRelations = relations(server, ({ one }) => ({
-  batch: one(jobBatch, {
-    fields: [server.batchId],
-    references: [jobBatch.id],
-  }),
-}))
-
 export type JobBatch = typeof jobBatch.$inferSelect
 export type NewJobBatch = typeof jobBatch.$inferInsert
 
@@ -131,3 +124,27 @@ export type Server = typeof server.$inferSelect
 export type NewServer = typeof server.$inferInsert
 
 export type ServerType = (typeof serverTypeEnum)[number]
+
+export const serverTasks = sqliteTable("serverTasks", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  name: text("job").notNull(),
+  serverId: text("serverId").references(() => server.id),
+  order: integer("order").notNull(),
+  createdAt: text("createdAt")
+    .notNull()
+    .default(sql`(current_timestamp)`),
+  updatedAt: text("updatedAt")
+    .notNull()
+    .default(sql`(current_timestamp)`),
+})
+
+export type ServerTasks = typeof serverTasks.$inferSelect
+export type NewServerTasks = typeof serverTasks.$inferInsert
+
+export const serversRelations = relations(server, ({ one, many }) => ({
+  batch: one(jobBatch, {
+    fields: [server.batchId],
+    references: [jobBatch.id],
+  }),
+  tasks: many(serverTasks),
+}))
