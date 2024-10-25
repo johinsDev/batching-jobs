@@ -125,11 +125,26 @@ export type NewServer = typeof server.$inferInsert
 
 export type ServerType = (typeof serverTypeEnum)[number]
 
+export const serverTasksStateEnum = [
+  "pending",
+  "inprogress",
+  "failed",
+  "completed",
+] as const
+
 export const serverTasks = sqliteTable("serverTasks", {
   id: integer("id").primaryKey({ autoIncrement: true }),
   name: text("job").notNull(),
-  serverId: text("serverId").references(() => server.id),
+  serverId: text("serverId").references(() => server.id, {
+    onUpdate: "cascade",
+    onDelete: "cascade",
+  }),
   order: integer("order").notNull(),
+  state: text("state", {
+    enum: serverTasksStateEnum,
+  })
+    .notNull()
+    .default("pending"),
   createdAt: text("createdAt")
     .notNull()
     .default(sql`(current_timestamp)`),
@@ -140,6 +155,7 @@ export const serverTasks = sqliteTable("serverTasks", {
 
 export type ServerTasks = typeof serverTasks.$inferSelect
 export type NewServerTasks = typeof serverTasks.$inferInsert
+export type ServerTasksState = (typeof serverTasksStateEnum)[number]
 
 export const serversRelations = relations(server, ({ one, many }) => ({
   batch: one(jobBatch, {

@@ -1,0 +1,1 @@
+ALTER TABLE `serverTasks` ADD `state` text DEFAULT 'pending' NOT NULL;

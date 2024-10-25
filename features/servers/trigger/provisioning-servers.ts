@@ -1,42 +1,40 @@
-import { createBatch } from "@/features/servers/data-access/batch"
 import { logger, task, tasks, wait } from "@trigger.dev/sdk/v3"
 
 import { NewServer } from "@/lib/db/schema"
 
-import { updateServer } from "../data-access/server"
+import {
+  transitionInProgressServerTask,
+  transitionNextServerTask,
+} from "../data-access/server-tasks"
 
 type PayloadCreateServer = {
-  totalJobs: number
   serverId: NewServer["id"]
 }
 
 export const createServerTask = task<"create-server", PayloadCreateServer>({
   id: "create-server",
+  async onFailure(payload, error, params) {
+    // change the state of the server task to "failed"
+    logger.error("Failed to create server", { error, params })
+
+    await transitionInProgressServerTask(payload.serverId, "failed")
+  },
+  maxDuration: 300,
   async onSuccess(payload, output, params) {
     logger.log("Finished create-server task", { id: params.ctx.run.id })
+
+    await Promise.all([
+      await transitionInProgressServerTask(payload.serverId, "completed"),
+      await transitionNextServerTask(payload.serverId),
+    ])
   },
-  maxDuration: 300, // 5 minutes
   run: async (payload, { ctx }) => {
     logger.log("Creating server...", { payload, ctx })
 
-    await createBatch({
-      failedJobs: 0,
-      name: "Provisioning server",
-      pendingJobs: payload.totalJobs,
-      totalJobs: payload.totalJobs,
-      id: ctx.run.id,
-    })
-
-    logger.log("Batch created")
-
-    const server = await updateServer(payload.serverId, {
-      batchId: ctx.run.id,
-    })
-
-    logger.log("Server updated")
+    await wait.for({ seconds: 5 })
 
     await tasks.trigger<typeof installNginxTask>("install-nginx", {
-      serverId: server.id,
+      serverId: payload.serverId,
       batchId: ctx.run.id,
     })
 
@@ -57,40 +55,28 @@ export const installNginxTask = task<"install-nginx", PayloadNginx>({
   maxDuration: 300, // 5 minutes
   async onFailure(payload, error, params) {
     logger.error("Failed to install nginx", { error, params })
+
+    await transitionInProgressServerTask(payload.serverId, "failed")
+  },
+  async onSuccess(payload, output, params) {
+    logger.log("Finished install-nginx task", { id: params.ctx.run.id })
+
+    await Promise.all([
+      await transitionInProgressServerTask(payload.serverId, "completed"),
+      await transitionNextServerTask(payload.serverId),
+    ])
   },
   run: async (payload, { ctx }) => {
     logger.log("Installing nginx...", { payload, ctx })
 
-    await tasks.trigger<typeof installPhp>("install-php", {
-      serverId: payload.serverId,
-    })
-
-    return {
-      message: "Nginx installed!",
-    }
-  },
-})
-
-type PayloadPhp = {
-  serverId: string
-}
-
-// Install php
-export const installPhp = task<"install-php", PayloadPhp>({
-  id: "install-php",
-  async onSuccess(payload, output, params) {
-    logger.log("Finished install-php task", { id: params.ctx.run.id })
-  },
-  maxDuration: 300, // 5 minutes
-  run: async (payload, { ctx }) => {
-    logger.log("Installing php...", { payload, ctx })
+    await wait.for({ seconds: 5 })
 
     await tasks.trigger<typeof finalizeServerTask>("finalize-server", {
       serverId: payload.serverId,
     })
 
     return {
-      message: "Php installed!",
+      message: "Nginx installed!",
     }
   },
 })
@@ -107,6 +93,16 @@ export const finalizeServerTask = task<
   id: "finalize-server",
   async onSuccess(payload, output, params) {
     logger.log("Finished finalize-server task", { id: params.ctx.run.id })
+
+    await Promise.all([
+      await transitionInProgressServerTask(payload.serverId, "completed"),
+      await transitionNextServerTask(payload.serverId),
+    ])
+  },
+  async onFailure(payload, error, params) {
+    logger.error("Failed to finalize server", { error, params })
+
+    await transitionInProgressServerTask(payload.serverId, "failed")
   },
   maxDuration: 300, // 5 minutes
   run: async (payload: unknown, { ctx }) => {
