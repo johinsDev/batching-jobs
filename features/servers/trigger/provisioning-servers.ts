@@ -1,11 +1,13 @@
-import { logger, task, tasks, wait } from "@trigger.dev/sdk/v3"
-
-import { NewServer } from "@/lib/db/schema"
-
+import { updateServer } from "@/features/servers/data-access/server"
 import {
+  removeServerTasks,
   transitionInProgressServerTask,
   transitionNextServerTask,
-} from "../data-access/server-tasks"
+} from "@/features/servers/data-access/server-tasks"
+import { logger, task, tasks, wait } from "@trigger.dev/sdk/v3"
+import dayjs from "dayjs"
+
+import { NewServer } from "@/lib/db/schema"
 
 type PayloadCreateServer = {
   serverId: NewServer["id"]
@@ -97,7 +99,14 @@ export const finalizeServerTask = task<
     await Promise.all([
       await transitionInProgressServerTask(payload.serverId, "completed"),
       await transitionNextServerTask(payload.serverId),
+      await updateServer(payload.serverId, {
+        batchId: null,
+        // this is the format 2024-10-25 01:43:54
+        provisionedAt: dayjs().format("YYYY-MM-DD HH:mm:ss"),
+      }),
     ])
+
+    await removeServerTasks(payload.serverId)
   },
   async onFailure(payload, error, params) {
     logger.error("Failed to finalize server", { error, params })

@@ -19,12 +19,6 @@ export async function createServerTasks(
   return res
 }
 
-// create a functio to update server tasks
-// this is the allowed states for the server tasks
-// pending -> in progress
-// inprogress -> complete
-// inprogress -> failed
-
 export function allowedServerTasksStateTransitions(
   from: ServerTasksState
 ): ServerTasksState[] {
@@ -115,4 +109,8 @@ export async function transitionNextServerTask(serverId: string) {
   } else {
     console.error("No pending task found", { serverId })
   }
+}
+
+export async function removeServerTasks(serverId: string) {
+  return db.delete(serverTasks).where(eq(serverTasks.serverId, serverId))
 }
