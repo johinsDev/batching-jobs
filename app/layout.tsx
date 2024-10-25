@@ -7,8 +7,8 @@ import { ThemeProvider } from "@/components/theme-provider"
 import "./globals.css"
 
 export const metadata: Metadata = {
-  title: "Finance App",
-  description: "The best finance app in the world",
+  title: "Job batching App",
+  description: "The best job batching app in the world",
 }
 
 export const viewport: Viewport = {

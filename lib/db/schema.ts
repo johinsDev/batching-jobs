@@ -1,4 +1,4 @@
-import { relations } from "drizzle-orm"
+import { relations, sql } from "drizzle-orm"
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core"
 
 export const roleTypeEnum = ["user", "admin", "superadmin"] as const
@@ -82,3 +82,52 @@ export type NewVerification = typeof verification.$inferInsert
 
 export type RoleType = (typeof roleTypeEnum)[number]
 export type AccountType = (typeof accountTypeEnum)[number]
+
+export const jobBatch = sqliteTable("jobBatch", {
+  id: text("id").primaryKey(),
+  name: text("name").notNull(),
+  totalJobs: integer("totalJobs").notNull(),
+  pendingJobs: integer("pendingJobs").notNull(),
+  failedJobs: integer("failedJobs").notNull(),
+  createdAt: text("createdAt")
+    .notNull()
+    .default(sql`(current_timestamp)`),
+  updatedAt: text("updatedAt")
+    .notNull()
+    .default(sql`(current_timestamp)`),
+})
+
+export const serverTypeEnum = ["web", "db", "cache"] as const
+
+export const server = sqliteTable("server", {
+  id: text("id").primaryKey(),
+  name: text("name").notNull(),
+  batchId: text("batchId").references(() => jobBatch.id),
+  type: text("type", {
+    enum: serverTypeEnum,
+  })
+    .notNull()
+    .default("web"),
+  provisionedAt: text("provisionedAt"),
+  createdAt: text("createdAt")
+    .notNull()
+    .default(sql`(current_timestamp)`),
+  updatedAt: text("updatedAt")
+    .notNull()
+    .default(sql`(current_timestamp)`),
+})
+
+export const serversRelations = relations(server, ({ one }) => ({
+  batch: one(jobBatch, {
+    fields: [server.batchId],
+    references: [jobBatch.id],
+  }),
+}))
+
+export type JobBatch = typeof jobBatch.$inferSelect
+export type NewJobBatch = typeof jobBatch.$inferInsert
+
+export type Server = typeof server.$inferSelect
+export type NewServer = typeof server.$inferInsert
+
+export type ServerType = (typeof serverTypeEnum)[number]
