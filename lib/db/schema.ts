@@ -164,3 +164,10 @@ export const serversRelations = relations(server, ({ one, many }) => ({
   }),
   tasks: many(serverTasks),
 }))
+
+export const serverTasksRelations = relations(serverTasks, ({ one }) => ({
+  server: one(server, {
+    fields: [serverTasks.serverId],
+    references: [server.id],
+  }),
+}))

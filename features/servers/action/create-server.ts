@@ -1,5 +1,6 @@
 "use server"
 
+import { redirect } from "next/navigation"
 import { createBatch } from "@/features/servers/data-access/batch"
 import {
   createServer as createServerDb,
@@ -67,6 +68,5 @@ export const createServer = actionClient
 
     console.log("Server updated", { server })
 
-    // Create server logic here
-    return { status: "success" }
+    redirect("/servers/" + server.id)
   })

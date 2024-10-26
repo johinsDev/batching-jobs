@@ -34,3 +34,12 @@ export async function updateServer(
 
   return res[0]
 }
+
+export function getServer(id: string) {
+  return db.query.server.findFirst({
+    where: eq(server.id, id),
+    with: {
+      tasks: true,
+    },
+  })
+}
