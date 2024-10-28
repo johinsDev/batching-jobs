@@ -3,51 +3,19 @@
 import { useEffect } from "react"
 import { notFound, useParams } from "next/navigation"
 import { TimeLineItem } from "@/features/servers/components/timeline-item"
-import { useQuery } from "@tanstack/react-query"
+import { useServerById } from "@/features/servers/queries/use-server-by-id"
 
 import { formatServerDateTime } from "@/lib/date"
-import { Server, ServerTasks } from "@/lib/db/schema"
 
 import { DestroyServerForm } from "./destroy-server-form"
 import ServerInfoSkeleton from "./server-info-skeleton"
 
-type ServerWithTasks = Server & { tasks: Array<ServerTasks> }
-
 export function ServerInfo() {
   const params = useParams()
 
-  const serverId = params.id
+  const serverId = params.id as string
 
-  const {
-    data: server,
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ["server", serverId],
-    queryFn: async () => {
-      const res = await fetch(`/api/servers/${serverId}`)
-
-      if (!res.ok) {
-        throw new Error(res.statusText)
-      }
-
-      const json = (await res.json()) as { data: ServerWithTasks }
-
-      return json.data
-    },
-    refetchInterval(query) {
-      // if server return 404, stop polling
-      if (query.state.fetchFailureCount > 2) {
-        return false
-      }
-
-      if (query.state.data?.provisionedAt) {
-        return false
-      }
-
-      return 1000
-    },
-  })
+  const { data: server, isLoading, error } = useServerById(serverId)
 
   useEffect(() => {
     if (error && !isLoading && !server) {
@@ -84,7 +52,7 @@ export function ServerInfo() {
         <>
           <DestroyServerForm batchId={server.batchId} />
 
-          <ul>
+          <ol className="overflow-hidden">
             {server.tasks.map((task) => (
               <TimeLineItem
                 key={task.id}
@@ -93,7 +61,7 @@ export function ServerInfo() {
                 status={task.state}
               />
             ))}
-          </ul>
+          </ol>
         </>
       )}
     </div>
