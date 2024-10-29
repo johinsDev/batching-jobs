@@ -1,5 +1,7 @@
-name: on-push
-on: ["push"]
+name: 🚀 deploy
+on:
+  push:
+    branches: [main]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -12,9 +14,6 @@ jobs:
     strategy:
       matrix:
         step: [types:check, lint:check, format:check, build]
-    env:
-      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-      TURBO_TEAM: ${{ vars.TURBO_TEAM }}
 
     steps:
       - name: ⬇️ Checkout repo
