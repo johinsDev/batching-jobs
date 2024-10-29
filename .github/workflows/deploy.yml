@@ -31,13 +31,13 @@ jobs:
         run: bun install --frozen-lockfile
 
       - name: Type check
-        run: bun types:check
+        run: bun run types:check
 
       - name: Format code
-        run: bun format:check
+        run: bun run format:check
 
       - name: Lint code
-        run: bun lint:check
+        run: bun run lint:check
 
       - name: Install Vercel CLI
         run: bun install -g vercel@latest
