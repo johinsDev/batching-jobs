@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        step: [types:check, lint:check, format:check, build]
+        step: ["types:check", "lint:check", "format:check", "build"]
 
     steps:
       - name: ⬇️ Checkout repo
