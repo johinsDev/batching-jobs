@@ -16,7 +16,7 @@ const config = {
   "*.{js,jsx,ts,tsx}": [
     buildPrettierCommand,
     buildEslintCommand,
-    "bash -c 'bun run types:check'",
+    "bash -c 'pnpm run types:check'",
   ],
 }
 
