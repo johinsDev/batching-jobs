@@ -12,13 +12,13 @@ jobs:
     name: 🔁 ci
     runs-on: ubuntu-latest
     env:
-      DATABASE_URL: ${{ vars.DATABASE_URL }}
-      DATABASE_AUTH_TOKEN: ${{ vars.DATABASE_AUTH_TOKEN }}
-      BETTER_AUTH_SECRET: ${{ vars.BETTER_AUTH_SECRET }}
-      BETTER_AUTH_URL: ${{ vars.BETTER_AUTH_URL }}
-      CLIENT_ID_GITHUB: ${{ vars.CLIENT_ID_GITHUB }}
-      CLIENT_SECRET_GITHUB: ${{ vars.CLIENT_SECRET_GITHUB }}
-      TRIGGER_SECRET_KEY: ${{ vars.TRIGGER_SECRET_KEY }}
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      DATABASE_AUTH_TOKEN: ${{ secrets.DATABASE_AUTH_TOKEN }}
+      BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET }}
+      BETTER_AUTH_URL: ${{ secrets.BETTER_AUTH_URL }}
+      CLIENT_ID_GITHUB: ${{ secrets.CLIENT_ID_GITHUB }}
+      CLIENT_SECRET_GITHUB: ${{ secrets.CLIENT_SECRET_GITHUB }}
+      TRIGGER_SECRET_KEY: ${{ secrets.TRIGGER_SECRET_KEY }}
 
     strategy:
       matrix:
@@ -66,13 +66,13 @@ jobs:
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     env:
       VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-      DATABASE_URL: ${{ vars.DATABASE_URL }}
-      DATABASE_AUTH_TOKEN: ${{ vars.DATABASE_AUTH_TOKEN }}
-      BETTER_AUTH_SECRET: ${{ vars.BETTER_AUTH_SECRET }}
-      BETTER_AUTH_URL: ${{ vars.BETTER_AUTH_URL }}
-      CLIENT_ID_GITHUB: ${{ vars.CLIENT_ID_GITHUB }}
-      CLIENT_SECRET_GITHUB: ${{ vars.CLIENT_SECRET_GITHUB }}
-      TRIGGER_SECRET_KEY: ${{ vars.TRIGGER_SECRET_KEY }}
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      DATABASE_AUTH_TOKEN: ${{ secrets.DATABASE_AUTH_TOKEN }}
+      BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET }}
+      BETTER_AUTH_URL: ${{ secrets.BETTER_AUTH_URL }}
+      CLIENT_ID_GITHUB: ${{ secrets.CLIENT_ID_GITHUB }}
+      CLIENT_SECRET_GITHUB: ${{ secrets.CLIENT_SECRET_GITHUB }}
+      TRIGGER_SECRET_KEY: ${{ secrets.TRIGGER_SECRET_KEY }}
 
     steps:
       - name: ⬇️ Checkout repo
