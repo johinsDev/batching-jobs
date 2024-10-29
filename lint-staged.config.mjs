@@ -13,7 +13,11 @@ const buildPrettierCommand = (filenames) => {
 }
 
 const config = {
-  "*.{js,jsx,ts,tsx}": [buildPrettierCommand, buildEslintCommand, "bash -c 'bun run check-types'"],
+  "*.{js,jsx,ts,tsx}": [
+    buildPrettierCommand,
+    buildEslintCommand,
+    "bash -c 'bun run types:check'",
+  ],
 }
 
 export default config
