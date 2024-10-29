@@ -1,19 +1,19 @@
-name: Deploy
+name: 🚀 deploy
 on:
   push:
-    branches: [main] # o master, según tu rama principal
-  pull_request:
     branches: [main]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
 
     steps:
       - uses: actions/checkout@v4
 
       - name: Setup Bun
-        uses: oven-sh/setup-bun@v1
+        uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
 
