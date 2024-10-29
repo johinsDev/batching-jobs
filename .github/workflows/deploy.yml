@@ -11,6 +11,7 @@ jobs:
   build:
     name: 🔁 ci
     runs-on: ubuntu-latest
+    environment: prod
     env:
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
       DATABASE_AUTH_TOKEN: ${{ secrets.DATABASE_AUTH_TOKEN }}
@@ -63,6 +64,7 @@ jobs:
   deploy:
     name: 🚀 deploy
     runs-on: ubuntu-latest
+    environment: prod
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     env:
       VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
