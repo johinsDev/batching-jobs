@@ -1,4 +1,5 @@
 import * as React from "react"
+import { Primitive, PrimitivePropsWithRef } from "@radix-ui/react-primitive"
 import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
 import { Loader2Icon, LucideProps } from "lucide-react"
@@ -45,6 +46,7 @@ export interface ButtonProps
   loadingProps?: React.ForwardRefExoticComponent<
     Omit<LucideProps, "ref"> & React.RefAttributes<SVGSVGElement>
   >
+  spanProps?: PrimitivePropsWithRef<"span">
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
@@ -58,11 +60,14 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       loading,
       disabled,
       loadingProps,
+      spanProps,
       ...props
     },
     ref
   ) => {
     const Comp = asChild ? Slot : "button"
+
+    const { className: classNameSpan } = spanProps || {}
 
     return (
       <Comp
@@ -71,15 +76,20 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         disabled={loading || disabled}
         {...props}
       >
-        {loading && (
-          <Loader2Icon
-            size={16}
-            className="mr-2 animate-spin"
-            {...loadingProps}
-          />
-        )}
+        <Primitive.span
+          className={cn("flex h-full items-center", classNameSpan)}
+          {...spanProps}
+        >
+          {loading && (
+            <Loader2Icon
+              size={16}
+              className="mr-2 animate-spin"
+              {...loadingProps}
+            />
+          )}
 
-        {children}
+          {children}
+        </Primitive.span>
       </Comp>
     )
   }
