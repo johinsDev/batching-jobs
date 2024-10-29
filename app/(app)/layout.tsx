@@ -1,6 +1,6 @@
 import { Toaster } from "@/components/ui/sonner"
-import Navbar from "@/components/navbar"
-import Sidebar from "@/components/sidebar"
+import Navbar from "@/components/nav-bar"
+import Sidebar from "@/components/side-bar"
 
 export default async function AppLayout({
   children,
