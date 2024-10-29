@@ -23,11 +23,5 @@
       "callees": ["cn", "cva"],
       "config": "tailwind.config.cjs"
     }
-  },
-  "overrides": [
-    {
-      "files": ["*.ts", "*.tsx"],
-      "parser": "@typescript-eslint/parser"
-    }
-  ]
+  }
 }
