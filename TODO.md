@@ -10,6 +10,7 @@
 - Create UI similar laravel jetstreams
 - turborepo
 - storybook
+- commitlint validation
 - vitest
 - playwright
 - r2 abstraction
