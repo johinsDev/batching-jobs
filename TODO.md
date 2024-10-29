@@ -8,3 +8,6 @@
 - script to clone db from prod to staging (protect private data)
 - Create UI similar laravel jetstreams
 - turborepo
+- storybook
+- vitest
+- playwright
