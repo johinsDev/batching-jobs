@@ -69,7 +69,15 @@ export const createServerTask = task<"create-server", PayloadCreateServer>({
     ])
   },
   run: async (payload, { ctx }) => {
-    logger.log("Creating server...", { payload, ctx })
+    logger.log("Creating server...", {
+      payload,
+      ctx,
+      env: {
+        TRIGGER_PROJECT_ID: process.env.TRIGGER_PROJECT_ID,
+        DATABASE_URL: process.env.DATABASE_URL,
+        DATABASE_AUTH_TOKEN: !!process.env.DATABASE_AUTH_TOKEN,
+      },
+    })
 
     await wait.for({ seconds: 5 })
 
