@@ -106,7 +106,7 @@ jobs:
         env:
           TRIGGER_ACCESS_TOKEN: ${{ secrets.TRIGGER_ACCESS_TOKEN }}
         run: |
-          npx trigger.dev@latest deploy
+          pnpm dlx trigger.dev@latest deploy
 
       - name: install Vercel CLI with pnpm
         run: pnpm install -g vercel@latest
