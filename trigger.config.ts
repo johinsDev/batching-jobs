@@ -1,7 +1,9 @@
+import { syncEnvVars } from "@trigger.dev/build/extensions/core"
 import { defineConfig } from "@trigger.dev/sdk/v3"
 import dotenv from "dotenv"
 
 dotenv.config()
+
 export default defineConfig({
   project: process.env.TRIGGER_PROJECT_ID!,
   runtime: "node",
@@ -19,7 +21,20 @@ export default defineConfig({
     },
   },
   build: {
-    // Exclude native modules from bundling
+    extensions: [
+      syncEnvVars(async (ctx) => {
+        if (ctx.environment === "prod") return []
+
+        console.log(
+          "BASED on the branch, we will set different env vars DATABSE URL AND DATABASE_AUTH_TOKEN"
+        )
+
+        return Object.entries(ctx.env).map(([name, value]) => ({
+          name,
+          value,
+        }))
+      }),
+    ],
     external: ["@libsql/linux-x64-gnu", "libsql", "@libsql/client"],
   },
   dirs: ["features/servers/trigger"],
