@@ -1,4 +1,3 @@
-- running migrations db main
 - trigger setup main
 - update env vercel. github action
 - update to bun js
