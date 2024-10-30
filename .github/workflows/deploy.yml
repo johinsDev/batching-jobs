@@ -26,34 +26,20 @@ jobs:
         step: ["types:check", "lint:check", "format:check", "build"]
 
     steps:
-      - name: ⬇️ Checkout repo
+      - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: 📦 Install pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v4
         with:
-          version: latest
+          version: 9
           run_install: false
 
-      - name: 🔸 Setup node
+      - name: Use Node.js 20
         uses: actions/setup-node@v4
         with:
-          node-version: latest
-
-      - name: Get pnpm store directory
-        shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
-
-      - uses: actions/cache@v3
-        name: Setup pnpm cache
-        with:
-          path: ${{ env.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
+          node-version: 20
+          cache: "pnpm"
 
       - name: 📦 Install dependencies
         run: pnpm install --frozen-lockfile
