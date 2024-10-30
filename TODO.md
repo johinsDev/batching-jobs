@@ -19,5 +19,5 @@
 
 QA/STAGING
 
-- script to clone db from prod to staging (protect private data) every 1 week, - create db on new branch - delete db on branch deleted
-- update env variables from every trigger deploy in staging
+- script to clone db from prod to staging (protect private data ) every 1 week, - create db on new branch - delete db on branch deleted
+- update env variables from every trigger deploy in staging, update vercel environment with the DB data

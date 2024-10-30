@@ -1,16 +1,6 @@
 import Link from "next/link"
-import { envvars } from "@trigger.dev/sdk/v3"
-
-import { env } from "@/lib/env.mjs"
 
 export default async function LandingPage() {
-  await envvars.create(env.TRIGGER_PROJECT_ID, "dev", {
-    value: "Hello, World!",
-    name: "GREETING",
-  })
-
-  const envVars = await envvars.list(env.TRIGGER_PROJECT_ID, "dev")
-
   return (
     <div className="flex min-h-screen flex-col">
       <header className="flex h-14 items-center px-4 lg:px-6">
@@ -34,16 +24,7 @@ export default async function LandingPage() {
         </nav>
       </header>
       <main className="flex-1">
-        {envVars.map((envVar) => (
-          <div key={envVar.value} className="flex items-center gap-4 p-4">
-            <span className="text-sm text-neutral-500 dark:text-neutral-400">
-              {envVar.name}
-            </span>
-            <span className="text-sm text-neutral-900 dark:text-neutral-100">
-              {envVar.value}
-            </span>
-          </div>
-        ))}
+        <h1>Greetings from!</h1>
       </main>
 
       <footer className="flex w-full shrink-0 flex-col items-center gap-2 border-t px-4 py-6 sm:flex-row md:px-6">
