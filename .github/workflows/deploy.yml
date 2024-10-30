@@ -111,8 +111,12 @@ jobs:
         if: github.ref == 'refs/heads/main'
         uses: actions/cache@v4
         with:
-          path: ~/.cache/trigger.dev-cli
-          key: ${{ runner.os }}-trigger-dev-cli
+          path: |
+            ~/.trigger.dev
+            ~/.cache/trigger.dev-cli
+          key: ${{ runner.os }}-trigger-dev-${{ hashFiles('package.json') }}
+          restore-keys: |
+            ${{ runner.os }}-trigger-dev-
 
       - name: 🚀 Deploy Trigger.dev
         if: github.ref == 'refs/heads/main'
