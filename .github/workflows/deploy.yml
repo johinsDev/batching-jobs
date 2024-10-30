@@ -106,6 +106,7 @@ jobs:
       - name: Run Migrations
         run: pnpm run db:migrate
 
+        # Trigger.dev Deployment
       - name: Cache trigger.dev CLI
         if: github.ref == 'refs/heads/main'
         uses: actions/cache@v4
