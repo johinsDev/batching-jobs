@@ -16,5 +16,9 @@ export default defineConfig({
       randomize: true,
     },
   },
+  build: {
+    // Exclude native modules from bundling
+    external: ["@libsql/linux-x64-gnu", "libsql", "@libsql/client"],
+  },
   dirs: ["features/servers/trigger"],
 })
