@@ -1,5 +1,5 @@
 - update to bun js
-- migrate db main
+- running migrations db main
 - seed db main
 - trigger setup main
 - update env vercel. github action
